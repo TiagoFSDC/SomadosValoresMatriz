@@ -5,102 +5,70 @@ internal class Program
     private static void Main(string[] args)
     {
         int[,] mat = new int[5, 5];
-        int somal1 = 0;
-        int somal2 = 0;
-        int somal3 = 0;
-        int somal4 = 0;
-        int somal5 = 0;
-        int somac1 = 0;
-        int somac2 = 0;
-        int somac3 = 0;
-        int somac4 = 0;
-        int somac5 = 0;
 
-        LerMatriz(mat);
+        Random sorteio = new Random();
 
-
-        void LerMatriz(int[,] x)
+        //Carregar valores na matriz
+        for (int c = 0; c < mat.GetLength(1); c++)
         {
-            for (int i = 0; i < 5; i++)
+            for (int l = 0; l < mat.GetLength(0); l++)
             {
-                for (int j = 0; j < 5; j++)
-                {
-                    Console.Write($" Matriz[{i},{j}] : ");
-                    x[i, j] = int.Parse(Console.ReadLine());
-                }
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    Console.Write(x[i, j] + " ");
-                    if (i == 0)
-                    {
-                        somal1 += x[i, j];
-                    }
-                    if (i == 1)
-                    {
-                        somal2 += x[i, j];
-                    }
-                    if (i == 2)
-                    {
-                        somal3 += x[i, j];
-                    }
-                    if (i == 3)
-                    {
-                        somal4 += x[i, j];
-                    }
-                    if (i == 4)
-                    {
-                        somal5 += x[i, j];
-                    }
-                    if (j == 0)
-                    {
-                        somac1 += x[i, j];
-                    }
-                    if (j == 1)
-                    {
-                        somac2 += x[i, j];
-                    }
-                    if (j == 2)
-                    {
-                        somac3 += x[i, j];
-                    }
-                    if (j == 3)
-                    {
-                        somac4 += x[i, j];
-                    }
-                    if (j == 4)
-                    {
-                        somac5 += x[i, j];
-                    }
-                }
-                Console.WriteLine();
-
-            }
-            Console.Write("Diagonal pricipal: ");
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (i == j)
-                    {
-                        Console.Write(x[i, j]);
-                    }
-                }
-            }
-            Console.WriteLine();
-            Console.Write("Diagonal secundaria: ");
-            for (int i = 0; i < 5; i++)
-            {
-                Console.Write(x[i,4 - i] + "");
+                mat[l, c] = sorteio.Next(1000);
             }
         }
-        Console.WriteLine();
-        Console.WriteLine("Soma 1 linha:" + somal1 + ", Soma 2 linha: " + somal2 +
-            ", Soma 3 linha:" + somal3 + ", Soma 4 linha: " + somal4 + ", Soma 5 linha: " + somal5);
-        Console.WriteLine("Soma 1 coluna:" + somac1 + ", Soma 2 coluna: " + somac2 +
-            ", Soma 3 coluna:" + somac3 + ", Soma 4 coluna: " + somac4 + ", Soma 5 coluna: " + somac5);
+        //Calculo da soma das linhas
+        Console.WriteLine("Soma das linhas...");
+        for (int l = 0; l < mat.GetLength(0); l++)
+        {
+            Console.Write("Linha [" + l + "]= ");
+            int somalinha = 0;
+            for (int c = 0; c < mat.GetLength(1); c++)
+            {
+                somalinha += mat[l, c];
+            }
+            Console.WriteLine(somalinha);
+        }
 
+        //Calculo da soma das colunas
+        Console.WriteLine("Soma das Colunas...");
+        for (int c = 0; c < mat.GetLength(1); c++)
+        {
+            Console.Write("Soma da coluna [" + c + "]= ");
+            int somacoluna = 0;
+            for (int l = 0; l < mat.GetLength(0); l++)
+            {
+                somacoluna += mat[l, c];
+            }
+            Console.WriteLine(somacoluna);
+        }
+
+        //Soma diagonal principal
+        Console.WriteLine("Soma da Diagonal principal...");
+        int diagonal = 0;
+        for (int c = 0; c < mat.GetLength(1); c++)
+        {
+            diagonal += mat[c, c];
+        }
+        Console.WriteLine(diagonal);
+
+        //Soma diagonal secundária
+        Console.WriteLine("Soma da Diagonal principal...");
+        diagonal = 0;
+        for (int c = 0; c < mat.GetLength(1); c++)
+        {
+            diagonal += mat[c, mat.GetLength(1)-c-1];
+        }
+        Console.WriteLine(diagonal);
+
+        //Impressao da matriz
+        Console.WriteLine("Os valores da matriz são: ");
+        for (int l = 0; l < mat.GetLength(0); l++)
+        {
+            for (int c = 0; c < mat.GetLength(1); c++)
+            {
+                Console.Write(" \tmat[" + l + "][" + c + "] =" + mat[l, c].ToString("d3"));
+            }
+            Console.WriteLine();
+        }
     }
 }
